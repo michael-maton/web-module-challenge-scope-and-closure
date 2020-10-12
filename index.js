@@ -75,7 +75,7 @@ function counter2() {
 
 Write a function called `inning` that returns a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(num){
+function inning(){
   // console.log(`Inning #${num}`);
   return (Math.floor(Math.random()*3));
 }
@@ -132,7 +132,7 @@ function finalScore(inning, innNum){
   }
   return [`Home: ${home}`, `Away: ${away}`];
 }
-console.log(finalScore(inning, 9));
+// console.log(finalScore(inning, 9));
 
 /* Task 4: 
 
@@ -154,21 +154,52 @@ and returns the score at each pont in the game, like so:
 9th inning: awayTeam - homeTeam
 Final Score: awayTeam - homeTeam */
 
+// function scoreboard(inning, num) {
+//   let home = 0;
+//   let away = 0;
+//   for (let i,j = 1; i,j <= num; i,j++){
+//     home = home + inning(i);
+//     away = away + inning(j);
+//     // console.log(`Home: ${home}`, `Away: ${away}`);
+//     // var randNum = inning(i);
+//     // home = home + randNum;
+//     // console.log(randNum);
+//     console.log(`Inning #${j} Home: ${home}`, `Away: ${away}`);
+//   }
+//   return [`Final Score: ${home} - ${away}`];
+// }
 
-function scoreboard(inning, num) {
-  let home = 0;
-  let away = 0;
-  for (let i,j = 1; i,j <= num; i,j++){
-    home = home + inning(i);
-    away = away + inning(j);
-    // console.log(`Home: ${home}`, `Away: ${away}`);
-    // var randNum = inning(i);
-    // home = home + randNum;
-    // console.log(randNum);
-    console.log(`Inning #${j} Home: ${home}`, `Away: ${away}`);
-  }
-  return [`Final Score: ${home} - ${away}`];
+
+// console.log(scoreboard(inning, 9));
+
+
+// function getInningScore(inning, num){
+//    home = inning;
+//   let away = inning;
+//   console.log(`Inning #${num} - Home: ${home}`, `Away: ${away}`)
+// }
+
+function getInningScore(cbInning, num) {
+  let home = cbInning();
+  let away = cbInning();
+  console.log(`Inning #${num} - Home: ${home}`, `Away: ${away}`);
+  return [home, away];
 }
 
 
-console.log(scoreboard(inning, 9));
+function scoreboard(cbGetInningScore, cbInning, num) {
+  let finalHome = 0;
+  let finalAway = 0;
+  for (let i = 1; i <= num; i++){
+    let inningScore = getInningScore(cbInning, i);
+    finalHome = finalHome + inningScore[0];
+    finalAway = finalAway + inningScore[1];
+
+    // console.log(inningScore);
+    // console.log(getInningScore(cbInning, i));
+  }
+  return [`Final Score: ${finalHome} - ${finalAway}`];
+}
+
+
+console.log(scoreboard(getInningScore, inning, 9));
