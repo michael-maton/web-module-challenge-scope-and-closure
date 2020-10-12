@@ -75,10 +75,10 @@ function counter2() {
 
 Write a function called `inning` that returns a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(){
-  // console.log(`Inning #${num}`);
-  return (Math.floor(Math.random()*3));
-}
+// function inning(){
+//   // console.log(`Inning #${num}`);
+//   return (Math.floor(Math.random()*3));
+// }
 // console.log(inning());
 
 // function inning(numOfInnings){
@@ -179,9 +179,41 @@ Final Score: awayTeam - homeTeam */
 //   console.log(`Inning #${num} - Home: ${home}`, `Away: ${away}`)
 // }
 
+// function getInningScore(cbInning, num) {
+//   let home = cbInning();
+//   let away = cbInning();
+//   console.log(`Inning #${num} - Home: ${home}`, `Away: ${away}`);
+//   return [home, away];
+// }
+
+
+// function scoreboard(cbGetInningScore, cbInning, num) {
+//   let finalHome = 0;
+//   let finalAway = 0;
+//   for (let i = 1; i <= num; i++){
+//     let inningScore = cbGetInningScore(cbInning, i);
+//     finalHome = finalHome + inningScore[0];
+//     finalAway = finalAway + inningScore[1];
+
+//     // console.log(inningScore);
+//     // console.log(getInningScore(cbInning, i));
+//   }
+//   return [`Final Score: ${finalHome} - ${finalAway}`];
+// }
+
+
+// console.log(scoreboard(getInningScore, inning, 9));
+
+
+function inning(team) {
+  return function() {
+    return Math.floor(Math.random()*3);
+  }
+}
+
 function getInningScore(cbInning, num) {
-  let home = cbInning();
-  let away = cbInning();
+  let home = cbInning("home");
+  let away = cbInning("away");
   console.log(`Inning #${num} - Home: ${home}`, `Away: ${away}`);
   return [home, away];
 }
@@ -191,7 +223,7 @@ function scoreboard(cbGetInningScore, cbInning, num) {
   let finalHome = 0;
   let finalAway = 0;
   for (let i = 1; i <= num; i++){
-    let inningScore = getInningScore(cbInning, i);
+    let inningScore = cbGetInningScore(cbInning, i);
     finalHome = finalHome + inningScore[0];
     finalAway = finalAway + inningScore[1];
 
@@ -202,4 +234,26 @@ function scoreboard(cbGetInningScore, cbInning, num) {
 }
 
 
-console.log(scoreboard(getInningScore, inning, 9));
+console.log(scoreboard(getInningScore, inning(), 9));
+
+
+
+
+
+
+function personalDice(name){
+  return function(){
+      // generate random number between 1 and 6
+    const newRoll = Math.floor(Math.random() * 7);
+    console.log(`${name} rolled a ${newRoll}`)
+  }
+}
+
+const dansRoll = personalDice("Dan");
+
+const zoesRoll = personalDice("Zoe");
+
+
+dansRoll();
+dansRoll();
+zoesRoll();
